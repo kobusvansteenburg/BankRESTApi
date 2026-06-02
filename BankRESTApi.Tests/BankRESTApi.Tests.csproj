@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BankRESTApi.csproj" />
+    <ProjectReference Include="..\BankRESTApi\BankRESTApi.csproj" />
   </ItemGroup>
 
 </Project>
