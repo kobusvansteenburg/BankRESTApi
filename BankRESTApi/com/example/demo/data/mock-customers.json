@@ -1,0 +1,33 @@
+[
+  {
+    "FirstName": "John",
+    "LastName": "Doe",
+    "Email": "john.doe@example.com",
+    "Accounts": [
+      { "AccountNumber": "GB29NWBK60161331926819", "Type": "Checking", "Balance": 1023.45 },
+      { "AccountNumber": "GB29NWBK60161331926820", "Type": "Savings", "Balance": 2048.00 }
+    ]
+  },
+  {
+    "FirstName": "Jane",
+    "LastName": "Smith",
+    "Email": "jane.smith@example.com",
+    "Accounts": [
+      { "AccountNumber": "GB29NWBK60161331926821", "Type": "Checking", "Balance": 560.50 }
+    ]
+  },
+  {
+    "FirstName": "Alice",
+    "LastName": "Johnson",
+    "Email": "alice.johnson@example.com",
+    "Accounts": []
+  },
+  {
+    "FirstName": "Bob",
+    "LastName": "Brown",
+    "Email": "bob.brown@example.com",
+    "Accounts": [
+      { "AccountNumber": "GB29NWBK60161331926822", "Type": "Savings", "Balance": 15000.00 }
+    ]
+  }
+]

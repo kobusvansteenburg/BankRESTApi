@@ -1,0 +1,6 @@
+C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi.Tests\obj\Debug\net8.0\BankRESTApi.Tests.csproj.AssemblyReference.cache
+C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi.Tests\obj\Debug\net8.0\MvcTestingAppManifest.json
+C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi.Tests\obj\Debug\net8.0\BankRESTApi.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi.Tests\obj\Debug\net8.0\BankRESTApi.Tests.AssemblyInfoInputs.cache
+C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi.Tests\obj\Debug\net8.0\BankRESTApi.Tests.AssemblyInfo.cs
+C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi.Tests\obj\Debug\net8.0\BankRESTApi.Tests.csproj.CoreCompileInputs.cache
