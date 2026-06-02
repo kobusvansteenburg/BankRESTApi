@@ -1,3 +1,3 @@
-From the directory run
+From the directory run:
 
 dotnet run --project BankRESTApi
