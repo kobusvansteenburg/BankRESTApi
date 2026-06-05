@@ -17,14 +17,14 @@ namespace BankRESTApi
             builder.Services.AddSingleton<ICustomerRepository, MongoDbCustomerRepository>();
             builder.Services.AddSingleton<CustomerService, InMemoryCustomerService>();
 
-            var allowedOrigins = builder.Configuration["AllowedOrigins"]?.Split(",")
-                ?? new[] { "http://localhost:5173" };
-
             builder.Services.AddCors(options =>
             {
                 options.AddDefaultPolicy(policy =>
                 {
-                    policy.WithOrigins(allowedOrigins)
+                    policy.WithOrigins(
+                              "http://localhost:5173",
+                              "https://react-frontend-bankapp.vercel.app"
+                          )
                           .AllowAnyHeader()
                           .AllowAnyMethod();
                 });
