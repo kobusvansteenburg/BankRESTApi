@@ -42,7 +42,6 @@ namespace BankRESTApi
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
             app.UseCors();
             app.UseAuthorization();
             app.MapControllers();
