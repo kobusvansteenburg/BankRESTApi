@@ -17,16 +17,17 @@ namespace com.example.demo.controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Account>> GetAll(int customerId)
+        public ActionResult<IEnumerable<Account>> GetAll(string customerId)
         {
             var accounts = _service.GetAccounts(customerId);
             if (accounts is null) return NotFound();
             return Ok(accounts);
         }
 
-        // GET /api/customers/{customerId}/Account/{accountId}
-        [HttpGet("{id:int}")]
-        public ActionResult<Account> Get(int customerId, int id)
+        // GET /api/customers/{customerId}/Account/{id}
+        // Regex constrains to 24-char hex ObjectId so it doesn't collide with accountNumber route
+        [HttpGet("{id:regex([[0-9a-fA-F]]{{24}})}")]
+        public ActionResult<Account> Get(string customerId, string id)
         {
             var a = _service.GetAccount(customerId, id);
             if (a is null) return NotFound();
@@ -34,9 +35,8 @@ namespace com.example.demo.controllers
         }
 
         // GET /api/customers/{customerId}/Account/{accountNumber}
-        // accountNumber route placed after id route; id route constrained to int so this will match non-numeric account numbers
         [HttpGet("{accountNumber}")]
-        public ActionResult<Account> GetByNumber(int customerId, string accountNumber)
+        public ActionResult<Account> GetByNumber(string customerId, string accountNumber)
         {
             var a = _service.GetAccountByNumber(customerId, accountNumber);
             if (a is null) return NotFound();
@@ -44,11 +44,11 @@ namespace com.example.demo.controllers
         }
 
         [HttpPost]
-        public ActionResult<Account> Create(int customerId, Account account)
+        public ActionResult<Account> Create(string customerId, Account account)
         {
             var created = _service.CreateAccount(customerId, account);
             if (created is null) return NotFound();
-            return CreatedAtAction(nameof(Get), new { customerId = customerId, id = created.Id }, created);
+            return CreatedAtAction(nameof(Get), new { customerId, id = created.Id }, created);
         }
 
         // Global accounts
@@ -61,8 +61,8 @@ namespace com.example.demo.controllers
         }
 
         [HttpGet]
-        [Route("/api/accounts/{id:int}")]
-        public ActionResult<Account> GetGlobalById(int id)
+        [Route("/api/accounts/{id:regex([[0-9a-fA-F]]{{24}})}")]
+        public ActionResult<Account> GetGlobalById(string id)
         {
             var a = _service.GetAccountById(id);
             if (a is null) return NotFound();
@@ -79,7 +79,7 @@ namespace com.example.demo.controllers
 
         [HttpPost]
         [Route("/api/accounts")]
-        public ActionResult<Account> CreateGlobal([FromQuery] int customerId, [FromBody] Account account)
+        public ActionResult<Account> CreateGlobal([FromQuery] string customerId, [FromBody] Account account)
         {
             var created = _service.CreateAccountForCustomer(customerId, account);
             if (created is null) return NotFound();
@@ -87,8 +87,8 @@ namespace com.example.demo.controllers
         }
 
         [HttpPut]
-        [Route("/api/accounts/{id:int}")]
-        public ActionResult<Account> UpdateGlobal(int id, Account updated)
+        [Route("/api/accounts/{id:regex([[0-9a-fA-F]]{{24}})}")]
+        public ActionResult<Account> UpdateGlobal(string id, Account updated)
         {
             var a = _service.UpdateAccount(id, updated);
             if (a is null) return NotFound();
@@ -96,8 +96,8 @@ namespace com.example.demo.controllers
         }
 
         [HttpDelete]
-        [Route("/api/accounts/{id:int}")]
-        public ActionResult DeleteGlobal(int id)
+        [Route("/api/accounts/{id:regex([[0-9a-fA-F]]{{24}})}")]
+        public ActionResult DeleteGlobal(string id)
         {
             var ok = _service.DeleteAccount(id);
             if (!ok) return NotFound();

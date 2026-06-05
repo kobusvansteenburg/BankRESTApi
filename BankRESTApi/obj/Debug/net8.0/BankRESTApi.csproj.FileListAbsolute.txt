@@ -28,10 +28,15 @@ C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\obj\Debug\net8.0\staticwebas
 C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\obj\Debug\net8.0\swae.build.ex.cache
-C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\obj\Debug\net8.0\BankREST.3DEF1EAF.Up2Date
 C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\obj\Debug\net8.0\BankRESTApi.dll
 C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\obj\Debug\net8.0\refint\BankRESTApi.dll
 C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\obj\Debug\net8.0\BankRESTApi.pdb
 C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\obj\Debug\net8.0\BankRESTApi.genruntimeconfig.cache
 C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\obj\Debug\net8.0\ref\BankRESTApi.dll
+C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\bin\Debug\net8.0\DnsClient.dll
+C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\bin\Debug\net8.0\MongoDB.Bson.dll
+C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\bin\Debug\net8.0\MongoDB.Driver.dll
+C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\bin\Debug\net8.0\SharpCompress.dll
+C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\bin\Debug\net8.0\Snappier.dll
+C:\Users\kobus\source\repos\BankRESTApi\BankRESTApi\bin\Debug\net8.0\ZstdSharp.dll

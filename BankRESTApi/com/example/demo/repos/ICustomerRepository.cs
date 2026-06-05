@@ -6,24 +6,24 @@ namespace com.example.demo.repos
     public interface ICustomerRepository
     {
         IEnumerable<Customer> GetAll();
-        Customer? Get(int id);
+        Customer? Get(string id);
         Customer Create(Customer customer);
 
-        IEnumerable<Account>? GetAccounts(int customerId);
-        Account? GetAccount(int customerId, int accountId);
-        Account? CreateAccount(int customerId, Account account);
+        IEnumerable<Account>? GetAccounts(string customerId);
+        Account? GetAccount(string customerId, string accountId);
+        Account? CreateAccount(string customerId, Account account);
 
-        Account? GetAccountByNumber(int customerId, string accountNumber);
-        Account? GetAccountById(int accountId);
+        Account? GetAccountByNumber(string customerId, string accountNumber);
+        Account? GetAccountById(string accountId);
         IEnumerable<Customer> GetPremiumCustomers(decimal threshold);
 
-        Customer? UpdateCustomer(int id, Customer updated);
-        bool DeleteCustomer(int id);
+        Customer? UpdateCustomer(string id, Customer updated);
+        bool DeleteCustomer(string id);
 
         IEnumerable<Account> GetAllAccounts();
         IEnumerable<Account> GetAccountsByCustomerName(string name);
-        Account? UpdateAccount(int accountId, Account updated);
-        bool DeleteAccount(int accountId);
-        Account? CreateAccountForCustomer(int customerId, Account account);
+        Account? UpdateAccount(string accountId, Account updated);
+        bool DeleteAccount(string accountId);
+        Account? CreateAccountForCustomer(string customerId, Account account);
     }
 }

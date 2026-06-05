@@ -1,5 +1,7 @@
 
+using com.example.demo.repos;
 using com.example.demo.services;
+using com.example.demo.settings;
 
 namespace BankRESTApi
 {
@@ -9,20 +11,31 @@ namespace BankRESTApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            builder.Services.Configure<MongoDbSettings>(
+                builder.Configuration.GetSection("MongoDbSettings"));
 
-            // register repository and the in-memory customer service for DI
-            builder.Services.AddSingleton<com.example.demo.repos.ICustomerRepository, com.example.demo.repos.CustomerRepository>();
+            builder.Services.AddSingleton<ICustomerRepository, MongoDbCustomerRepository>();
             builder.Services.AddSingleton<CustomerService, InMemoryCustomerService>();
 
+            var allowedOrigins = builder.Configuration["AllowedOrigins"]?.Split(",")
+                ?? new[] { "http://localhost:5173" };
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.WithOrigins(allowedOrigins)
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
+
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -30,12 +43,9 @@ namespace BankRESTApi
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors();
             app.UseAuthorization();
-
-
             app.MapControllers();
-
             app.Run();
         }
     }

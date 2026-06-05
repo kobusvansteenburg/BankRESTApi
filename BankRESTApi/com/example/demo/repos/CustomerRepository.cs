@@ -1,4 +1,4 @@
-﻿using com.example.demo.data;
+using com.example.demo.data;
 using com.example.demo.models;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,6 @@ namespace com.example.demo.repos
 
         public CustomerRepository()
         {
-            // initialize id counters and assign ids to any seeded customers/accounts
             if (MockDataStore.Customers != null)
             {
                 for (int i = 0; i < MockDataStore.Customers.Count; i++)
@@ -21,14 +20,14 @@ namespace com.example.demo.repos
                     var c = MockDataStore.Customers[i];
                     if (c == null) continue;
 
-                    var id = Interlocked.Increment(ref _nextId);
+                    var id = Interlocked.Increment(ref _nextId).ToString();
 
                     var accounts = new List<Account>();
                     if (c.Accounts != null)
                     {
                         foreach (var a in c.Accounts)
                         {
-                            var aid = Interlocked.Increment(ref _nextAccountId);
+                            var aid = Interlocked.Increment(ref _nextAccountId).ToString();
                             accounts.Add(a with { Id = aid });
                         }
                     }
@@ -38,25 +37,20 @@ namespace com.example.demo.repos
             }
         }
 
-        public IEnumerable<Customer> GetAll()
-        {
-            return MockDataStore.Customers;
-        }
+        public IEnumerable<Customer> GetAll() => MockDataStore.Customers;
 
-        public Customer? Get(int id)
-        {
-            return MockDataStore.Customers.FirstOrDefault(c => c.Id == id);
-        }
+        public Customer? Get(string id) =>
+            MockDataStore.Customers.FirstOrDefault(c => c.Id == id);
 
         public Customer Create(Customer customer)
         {
-            var id = Interlocked.Increment(ref _nextId);
+            var id = Interlocked.Increment(ref _nextId).ToString();
             var accounts = new List<Account>();
             if (customer.Accounts != null)
             {
                 foreach (var a in customer.Accounts)
                 {
-                    var aid = Interlocked.Increment(ref _nextAccountId);
+                    var aid = Interlocked.Increment(ref _nextAccountId).ToString();
                     accounts.Add(a with { Id = aid });
                 }
             }
@@ -66,31 +60,28 @@ namespace com.example.demo.repos
             return created;
         }
 
-        public IEnumerable<Account>? GetAccounts(int customerId)
-        {
-            var c = Get(customerId);
-            return c?.Accounts;
-        }
+        public IEnumerable<Account>? GetAccounts(string customerId) => Get(customerId)?.Accounts;
 
-        public Account? GetAccount(int customerId, int accountId)
+        public Account? GetAccount(string customerId, string accountId)
         {
             var accounts = GetAccounts(customerId);
             return accounts?.FirstOrDefault(a => a.Id == accountId);
         }
 
-        public Account? CreateAccount(int customerId, Account account)
+        public Account? CreateAccount(string customerId, Account account)
         {
             var customer = Get(customerId);
             if (customer == null) return null;
-            var aid = Interlocked.Increment(ref _nextAccountId);
+            var aid = Interlocked.Increment(ref _nextAccountId).ToString();
             var created = account with { Id = aid };
             customer.Accounts.Add(created);
             return created;
         }
 
-        public Account? CreateAccountForCustomer(int customerId, Account account) => CreateAccount(customerId, account);
+        public Account? CreateAccountForCustomer(string customerId, Account account) =>
+            CreateAccount(customerId, account);
 
-        public Customer? UpdateCustomer(int id, Customer updated)
+        public Customer? UpdateCustomer(string id, Customer updated)
         {
             var idx = MockDataStore.Customers.FindIndex(c => c.Id == id);
             if (idx < 0) return null;
@@ -105,26 +96,23 @@ namespace com.example.demo.repos
             return merged;
         }
 
-        public bool DeleteCustomer(int id)
+        public bool DeleteCustomer(string id)
         {
             var c = Get(id);
             if (c == null) return false;
             return MockDataStore.Customers.Remove(c);
         }
 
-        public IEnumerable<Account> GetAllAccounts()
-        {
-            return MockDataStore.Customers.SelectMany(c => c.Accounts ?? Enumerable.Empty<Account>());
-        }
+        public IEnumerable<Account> GetAllAccounts() =>
+            MockDataStore.Customers.SelectMany(c => c.Accounts ?? Enumerable.Empty<Account>());
 
-        public IEnumerable<Account> GetAccountsByCustomerName(string name)
-        {
-            return MockDataStore.Customers
-                .Where(c => string.Equals(c.FirstName, name, System.StringComparison.OrdinalIgnoreCase) || string.Equals(c.LastName, name, System.StringComparison.OrdinalIgnoreCase))
+        public IEnumerable<Account> GetAccountsByCustomerName(string name) =>
+            MockDataStore.Customers
+                .Where(c => string.Equals(c.FirstName, name, System.StringComparison.OrdinalIgnoreCase)
+                         || string.Equals(c.LastName, name, System.StringComparison.OrdinalIgnoreCase))
                 .SelectMany(c => c.Accounts ?? Enumerable.Empty<Account>());
-        }
 
-        public Account? UpdateAccount(int accountId, Account updated)
+        public Account? UpdateAccount(string accountId, Account updated)
         {
             foreach (var c in MockDataStore.Customers)
             {
@@ -145,34 +133,30 @@ namespace com.example.demo.repos
             return null;
         }
 
-        public bool DeleteAccount(int accountId)
+        public bool DeleteAccount(string accountId)
         {
             foreach (var c in MockDataStore.Customers)
             {
                 var a = c.Accounts.FirstOrDefault(x => x.Id == accountId);
-                if (a != null)
-                {
-                    return c.Accounts.Remove(a);
-                }
+                if (a != null) return c.Accounts.Remove(a);
             }
             return false;
         }
 
-        public Account? GetAccountByNumber(int customerId, string accountNumber)
+        public Account? GetAccountByNumber(string customerId, string accountNumber)
         {
             var c = Get(customerId);
-            return c?.Accounts?.FirstOrDefault(a => string.Equals(a.AccountNumber, accountNumber, System.StringComparison.OrdinalIgnoreCase));
+            return c?.Accounts?.FirstOrDefault(a =>
+                string.Equals(a.AccountNumber, accountNumber, System.StringComparison.OrdinalIgnoreCase));
         }
 
-        public Account? GetAccountById(int accountId)
-        {
-            return MockDataStore.Customers.SelectMany(c => c.Accounts ?? Enumerable.Empty<Account>()).FirstOrDefault(a => a.Id == accountId);
-        }
+        public Account? GetAccountById(string accountId) =>
+            MockDataStore.Customers
+                .SelectMany(c => c.Accounts ?? Enumerable.Empty<Account>())
+                .FirstOrDefault(a => a.Id == accountId);
 
-        public IEnumerable<Customer> GetPremiumCustomers(decimal threshold)
-        {
-            return MockDataStore.Customers.Where(c => (c.Accounts ?? Enumerable.Empty<Account>()).Sum(a => a.Balance) > threshold);
-        }
-
+        public IEnumerable<Customer> GetPremiumCustomers(decimal threshold) =>
+            MockDataStore.Customers.Where(c =>
+                (c.Accounts ?? Enumerable.Empty<Account>()).Sum(a => a.Balance) > threshold);
     }
 }

@@ -30,7 +30,7 @@ namespace com.example.demo.controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Customer> Get(int id)
+        public ActionResult<Customer> Get(string id)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace com.example.demo.controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Customer> Update(int id, Customer updated)
+        public ActionResult<Customer> Update(string id, Customer updated)
         {
             var c = _service.UpdateCustomer(id, updated);
             if (c is null) return NotFound();
@@ -86,7 +86,7 @@ namespace com.example.demo.controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
             var ok = _service.DeleteCustomer(id);
             if (!ok) return NotFound();
